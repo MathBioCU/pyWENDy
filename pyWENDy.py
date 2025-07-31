@@ -1,3 +1,6 @@
+#Copyright 2025, All Rights Reserved.
+#Code by April Tran, adapted from original code by Dan Messenger.
+
 import numpy as np
 from numpy.fft import fft, ifft
 from numpy.linalg import cholesky
@@ -210,7 +213,7 @@ class PyWENDy:
                     phi_u =  Phi[k]*self.xobs[:, i]
                     phiu_fft = (self.dt/np.sqrt(self.M*self.dt)) * np.fft.fft(phi_u)  
                     errs_temp[i, k] = 2 * (2 * np.pi / np.sqrt(self.M*self.dt)) * ((phiu_fft[ntilde]).imag)
-                sum = np.sqrt(np.linalg.norm(errs_temp.flatten(), 2)**2/K)
+            sum = np.sqrt(np.linalg.norm(errs_temp.flatten(), 2)**2/K)
             erms.append(sum)
         erms = np.array(erms)
         rad = self.getcorner(np.log(erms), radii, l=2)
