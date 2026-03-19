@@ -784,9 +784,6 @@ class WENDy:
     def solve_lsqr(A, b, atol=1e-8, btol=1e-8, iter_lim=None, x0=None):
         """
         Solve min ||Ax - b||_2 using LSQR.
-
-        Parameters
-        ----------
         A : ndarray, sparse matrix, or LinearOperator, shape (m, n)
         b : ndarray, shape (m,)
         atol, btol : float
@@ -795,30 +792,12 @@ class WENDy:
             Maximum number of iterations.
         x0 : ndarray or None
             Optional initial guess.
-
-        Returns
-        -------
-        x : ndarray, shape (n,)
-            Approximate least-squares solution.
-        info : dict
-            Extra solver information.
         """
+
         result = scipy.sparse.linalg.lsqr(A, b, atol=atol, btol=btol, iter_lim=iter_lim, x0=x0)
 
         x = result[0]
         nits = result[2]
-        '''''
-        info = {
-            "istop": result[1],       # reason for stopping
-            "iterations": result[2],  # number of iterations
-            "r1norm": result[3],      # ||b - A x||
-            "r2norm": result[4],      # regularized residual norm
-            "anorm": result[5],       # estimate of ||A||
-            "acond": result[6],       # estimate of cond(A)
-            "arnorm": result[7],      # ||A^T r||
-            "xnorm": result[8],       # ||x||
-        }
-        '''''
         return x.reshape(-1, 1), nits
         
 
